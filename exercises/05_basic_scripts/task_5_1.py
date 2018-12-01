@@ -41,7 +41,12 @@ ones = ''.join(['1' for i in range(int(ip_address_splitted[1]))])
 zeroes = ''.join(['0' for i in range (32-int(ip_address_splitted[1]))])
 bits = ones+zeroes
 
-bits_list = [('/'+ip_address_splitted[1]),int(bits[0:8],2),int(bits[8:16],2),int(bits[16:24],2),int(bits[24:32],2)]
+bits_list = [
+('/'+ip_address_splitted[1]),
+int(bits[0:8],2),
+int(bits[8:16],2),
+int(bits[16:24],2),
+int(bits[24:32],2)]
 
 ip_address_list = ip_address_splitted[0].split('.')
 ip_address_list_int = [int(i) for i in ip_address_list]
