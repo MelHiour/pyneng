@@ -46,10 +46,14 @@ Mask:
 {0[1]:<08b} {0[2]:<08b} {0[3]:<08b} {0[4]:<08b}
 '''
 
+# Join 1 (ones) to get the all ones in a subnet mask
 mask_ones = ''.join(['1' for i in range(int(ip_address_splitted[1]))])
+# Join 0 (zeroes) to get remaining zeroes in a subnet mask
 mask_zeroes = ''.join(['0' for i in range (32-int(ip_address_splitted[1]))])
+# Get a full binary mask like '11111111111111111111111100000000'
 mask_bits=mask_ones+mask_zeroes
 
+# Slice full bits in subnet mask by 8 and create a list. Convert binary to decimal integers.
 mask_bits_list_int = [
 int(mask_bits[0:8],2),
 int(mask_bits[8:16],2),
@@ -57,9 +61,11 @@ int(mask_bits[16:24],2),
 int(mask_bits[24:32],2)
 ]
 
+# Split an IP address by period, create a list and convert every value in list to decimal integer.
 ip_address_list = ip_address_splitted[0].split('.')
 ip_address_list_int = [int(i) for i in ip_address_list]
 
+# Form all necesary values for filling up the network template. Prefix and four octets of network address. It is created by binary (bitwise) AND operation. 10 AND 255 = 10, because 00001010 AND 11111111 = 00001010 
 network_list_int = [
 ('/'+ip_address_splitted[1]),
 mask_bits_list_int[0]&ip_address_list_int[0],
@@ -67,5 +73,6 @@ mask_bits_list_int[1]&ip_address_list_int[1],
 mask_bits_list_int[2]&ip_address_list_int[2],
 mask_bits_list_int[3]&ip_address_list_int[3]]
 
+# Print the filled templates
 print(template_net.format(ip_address_list_int))
 print(template_mask.format(network_list_int))

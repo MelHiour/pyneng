@@ -58,10 +58,12 @@ trunk_template = [
     'switchport trunk allowed vlan {}'
 ]
 
+# Input from user
 int_type = input('Interface type: ')
 int_number = input('Interface number: ')
 vlans = input('Vlan(s): ')
 
+# Set int_type equal to trunk_template or access_template via locals(). Basically, we use user prompt as part of varialbe name. Locals contains all definet variables.
 int_type = locals()[int_type+'_template']
 
 print('interface {}'.format(int_number))
