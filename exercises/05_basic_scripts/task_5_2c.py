@@ -48,3 +48,10 @@ london_co = {
         'routing': True
     }
 }
+
+device = input('Input device name: ')
+params_list = [key for key in london_co['r1'].keys()]
+parameter = input('Input parameter name (' + ','.join(params_list) + '): ')
+
+print(london_co[device].get(parameter, 'Failed'))
+
