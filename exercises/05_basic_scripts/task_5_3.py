@@ -57,3 +57,14 @@ trunk_template = [
     'switchport trunk encapsulation dot1q', 'switchport mode trunk',
     'switchport trunk allowed vlan {}'
 ]
+
+int_type = input('Interface type: ')
+int_number = input('Interface number: ')
+vlans = input('Vlan(s): ')
+
+int_type = locals()[int_type+'_template']
+
+print('interface {}'.format(int_number))
+print('\n'.join(int_type).format(vlans))
+
+
