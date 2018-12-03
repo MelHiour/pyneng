@@ -27,11 +27,13 @@ class_b = (128, 191)
 class_c = (192, 223)
 class_d = (224, 239)
 
-if int(ip_address[0]) in class_a \
-or int(ip_address[0]) in class_b \
-or int(ip_address[0]) in class_c:
+
+
+if int(ip_address.split('.')[0]) in class_a \
+or int(ip_address.split('.')[0]) in class_b \
+or int(ip_address.split('.')[0]) in class_c:
     print('IP address {} belongs to Unicast'.format(ip_address))
-elif int(ip_address[0]) in class_d:
+elif int(ip_address.split('.')[0]) in class_d:
     print('IP address {} belongs to Multicast'.format(ip_address))
 elif ip_address == '255.255.255.255':
     print('IP address {} is Local broadcast'.format(ip_address))
