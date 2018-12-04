@@ -23,10 +23,7 @@ while not address_correct:
 
     if len(ip_address.split('.')) == 4:
         for item in ip_address.split('.'):
-            ''' Probably it is no need to check isdigit()
             if item.isdigit() and int(item) in range(0,255):
-            '''
-            if int(item) in range(0,255):
                 address_correct = True
             else:
                 address_correct = False
