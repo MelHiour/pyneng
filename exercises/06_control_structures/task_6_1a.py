@@ -21,15 +21,17 @@ ip_address = input('Please set the IP address: ')
 address_correct = False
 
 if len(ip_address.split('.')) == 4:
-	for item in ip_address.split('.'):
-		if item.isdigit() and int(item) in range(0,255):
-			address_correct = True			
-		else:
-			address_correct = False
-			print('Address NOK')
+    for item in ip_address.split('.'):
+        if item.isdigit() and int(item) in range(0,255):
+            address_correct = True			
+        else:
+            address_correct = False
+            break
 else:
-	address_correct = False
-	print('Address NOK')
+    address_correct = False
+
+if not address_correct:
+    print('Address NOK')
 
 class_a = (1, 127)
 class_b = (128, 191)
