@@ -48,7 +48,8 @@ fast_int = {
 }
 
 
-print('=' *50)
+print('\n', '=' *50, '\n')
+
 for intf, vlan in fast_int['access'].items():
     print('interface FastEthernet' + intf)
     for command in access_template:
@@ -57,7 +58,7 @@ for intf, vlan in fast_int['access'].items():
         else:
             print(' {}'.format(command))
 
-print('=' *50)
+print('\n','=' *50, '\n')
 
 for intf, vlan_list in fast_int['trunk'].items():
     print('interface Fa{}'.format(intf))
