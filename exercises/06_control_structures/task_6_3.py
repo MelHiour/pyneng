@@ -70,8 +70,6 @@ for intf, vlan_list in fast_int['trunk'].items():
                 print(' {} {}'.format(command, ','.join(vlan_list[1::])))
             elif vlan_list[0] == 'del':
                 print(' {} remove {}'.format(command, ','.join(vlan_list[1::])))
-            else:
-                print(' ' + command)
         else:
             print(' ' + command)
 
