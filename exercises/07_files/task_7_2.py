@@ -12,3 +12,13 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+from sys import argv
+
+with open(argv[1]) as config:
+    file = config.read().split('\n')
+    for item in file:
+        if item.startswith('!'):
+            continue
+        else:
+            print(item)
