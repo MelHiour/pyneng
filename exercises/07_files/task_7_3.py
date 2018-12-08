@@ -18,3 +18,10 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+with open('CAM_table.txt') as cam:
+    for line in cam:
+        if '.' in line:
+            result_line = line.split()
+            result_line.remove('DYNAMIC')
+            print('    '.join(result_line))
