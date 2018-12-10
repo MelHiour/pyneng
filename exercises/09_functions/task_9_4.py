@@ -46,10 +46,13 @@ def cfg_to_dict(config):
             else:
                 if not line.startswith(' '):
                     key = line.strip()
-                else:
                     result[key] = []
+                else:
                     result[key].append(line.strip())
 
-    print(result)
+    return result
 
-cfg_to_dict('config_sw1.txt')
+result = cfg_to_dict('config_sw1.txt')
+
+for key, values in result.items():
+    print('{} : {}'.format(key, values))
