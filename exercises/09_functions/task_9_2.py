@@ -39,9 +39,9 @@ def generate_trunk_config(trunk):
         result.append(intf)
         for line in trunk_template:
             if line.endswith('vlan'):
-                result.append('{} {}'.format(line,vlan))
+                result.append(line + ' ' + ','.join([str(vlan) for vlan in vlans]))
             else:
-                result.append(*vlans)
+                result.append(line)
     return result
 
 
@@ -51,4 +51,5 @@ trunk_dict = {
     'FastEthernet0/4': [17]
 }
 
-generate_trunk_config(trunk_dict)
+result = generate_trunk_config(trunk_dict)
+print(result)
