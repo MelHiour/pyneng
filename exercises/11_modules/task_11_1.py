@@ -27,3 +27,28 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+def parse_cdp_neighbors(show_cdp):
+    result = {}
+    splitted_show = show_cdp.split('\n')
+    local_device = splitted_show[0].split('>')[0]
+    
+    for line in splitted_show[::-1]:
+        if line:
+            line_splitted = line.split()
+            if line_splitted[0] != 'Device':
+                if line_splitted[1][-1].isdigit():
+                    remote_device, local_intf, *items, remote_intf = line_splitted
+                    result[local_device, local_intf] = (remote_device, remote_intf)
+                else:
+                    remote_device, local_intf_pref, local_intf_num, *items, remote_intf_pref, remote_intf_num = line_splitted
+                    result[local_device, local_intf_pref+local_intf_num] = (remote_device, remote_intf_pref+remote_intf_num)
+            else:
+                break
+    return result
+
+with open('sw1_sh_cdp_neighbors.txt') as file:
+    oneline = file.read()
+
+result = parse_cdp_neighbors(oneline)
+print(result)

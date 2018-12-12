@@ -49,3 +49,25 @@ def check_ignore(command, ignore):
 
     '''
     return any(word in command for word in ignore)
+
+def cfg_to_dict(config):
+    result = {}
+    with open(config) as file:
+        for line in file:
+            if check_ignore(line, ignore) or '!' in line:
+                pass
+            else:
+                if line[0].isalpha():
+                    key0 = line.strip()
+                    result[key0] = {}
+                elif line.startswith(' ') and line[1].isalpha():
+                    key1 = line.strip()
+                    result[key0][key1] = []
+                elif line.startswith('  ') and line[2].isalpha():
+                    result[key0][key1].append(line.strip())
+    return result
+
+result = cfg_to_dict('config_r1.txt')
+print(result)
+
+
