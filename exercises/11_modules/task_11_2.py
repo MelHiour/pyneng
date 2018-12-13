@@ -26,3 +26,14 @@
 > pip install graphviz
 
 '''
+
+from draw_network_graph import draw_topology
+from task_11_1 import parse_cdp_neighbor
+
+
+with open('sw1_sh_cdp_neighbors.txt') as file:
+    oneline = file.read()
+
+    cdp_dict = parse_cdp_neighbors(oneline)
+
+draw_topology(cdp_dict)
