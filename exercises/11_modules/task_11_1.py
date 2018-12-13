@@ -31,7 +31,10 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 def parse_cdp_neighbors(show_cdp):
     result = {}
     splitted_show = show_cdp.split('\n')
-    local_device = splitted_show[0].split('>')[0]
+    for line in splitted_show:
+        if line:
+            local_device = line.split('>')[0]
+            break
     
     for line in splitted_show[::-1]:
         if line:
@@ -48,7 +51,7 @@ def parse_cdp_neighbors(show_cdp):
     return result
 
 if __name__ == '__main__':
-    with open('sw1_sh_cdp_neighbors.txt') as file:
+    with open('sh_cdp_n_sw1.txt') as file:
         oneline = file.read()
 
         result = parse_cdp_neighbors(oneline)
