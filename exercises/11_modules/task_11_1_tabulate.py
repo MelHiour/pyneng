@@ -56,4 +56,4 @@ if __name__ == '__main__':
         oneline = file.read()
 
         result = parse_cdp_neighbors(oneline)
-        print(tabulate(result))
+        print(tabulate(result, headers = 'keys'))
