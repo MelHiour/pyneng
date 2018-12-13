@@ -32,5 +32,5 @@ def check_ip_addresses(ip_list):
     return ip_alive, ip_dead
 
 if __name__ == '__main__':
-    result = check_ip_addresses(['192.168.0.29','192.168.0.30', '8.8.8.8'])
-    print(tabulate(result, headers = ['DEAD', 'ALIVE']))
+    result = check_ip_addresses(['8.8.8.6','8.8.8.7', '8.8.8.8'])
+    print(result)

@@ -29,18 +29,18 @@ def check_ip_availability(ip_range):
            ip_stop = ip_range_dashed[1].split('.')[-1]
 
            list_of_ips = ['{}.{}'.format(ip_main, last_octet) for last_octet in range(int(ip_start), int(ip_stop)+1)]
-           
+       
        elif '.' not in ip_range_dashed[1]:
            ip_start = ip_range_dashed[0].split('.')[-1]
            ip_stop = ip_range_dashed[1]
            
            list_of_ips = ['{}.{}'.format(ip_main, last_octet) for last_octet in range(int(ip_start), int(ip_stop)+1)]
-
+    
     else:
         list_of_ips = [ip_range]
-        print(list_of_ips)
+    
     availability = check_ip_addresses(list_of_ips)
     return availability
 
-result = check_ip_availability('192.168.0.1')
-print(tabulate(result, headers = ['DEAD', 'ALIVE']))
+result = check_ip_availability('8.8.8.6-8')
+print(result)
