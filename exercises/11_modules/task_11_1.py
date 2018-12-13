@@ -51,5 +51,5 @@ if __name__ == '__main__':
     with open('sw1_sh_cdp_neighbors.txt') as file:
         oneline = file.read()
 
-    result = parse_cdp_neighbors(oneline)
-    print(result)
+        result = parse_cdp_neighbors(oneline)
+        print(result)
