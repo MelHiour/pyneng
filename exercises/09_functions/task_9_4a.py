@@ -34,6 +34,7 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+from pprint import pprint
 
 ignore = ['duplex', 'alias', 'Current configuration']
 
@@ -68,6 +69,6 @@ def cfg_to_dict(config):
     return result
 
 result = cfg_to_dict('config_r1.txt')
-print(result)
+pprint(result)
 
 
