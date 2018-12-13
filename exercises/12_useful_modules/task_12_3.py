@@ -21,3 +21,13 @@ Reachable    Unreachable
 То есть, до выполнения функции и после списки должны выглядеть одинаково.
 
 '''
+
+from tabulate import tabulate
+from task_12_2 import check_ip_availability
+
+def ip_table(alive_ips, downs_ips):
+    result = {'Reachable': alive_ips, "Unreachable:": down_ips}
+    print(tabulate(result, headers = 'keys'))
+
+alive_ips, down_ips = check_ip_availability('8.8.8.6-8')
+ip_table(alive_ips, down_ips)

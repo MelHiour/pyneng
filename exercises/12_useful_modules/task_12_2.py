@@ -42,5 +42,6 @@ def check_ip_availability(ip_range):
     availability = check_ip_addresses(list_of_ips)
     return availability
 
-result = check_ip_availability('8.8.8.6-8')
-print(result)
+if __name__ == '__main__':
+    result = check_ip_availability('8.8.8.6-8')
+    print(result)
