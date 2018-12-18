@@ -38,3 +38,16 @@ Loopback100                100.0.0.1       YES manual up                    up
 
 
 '''
+
+from sys import argv
+import re
+
+where, what  = argv[1::]
+
+regex = re.compile(what)
+
+with open(where) as file:
+    for line in file:
+        match = regex.search(line)
+        if match:
+            print(line.strip())
