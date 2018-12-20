@@ -1,1 +1,1 @@
-Just a workbook for some Python courses.
+Just a workbook
