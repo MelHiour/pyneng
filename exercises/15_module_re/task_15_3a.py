@@ -20,3 +20,22 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+import re
+
+def parse_cfg(file):
+    with open(file) as config:
+        int_dict = {}
+        regex = re.compile('^interface (?P<intf>\S+)|ip address (?P<ipaddr>[\d.]+) (?P<mask>[\d.]+)$')
+        for line in config:
+            result = regex.finditer(line)
+            for item in result:
+                if item.lastgroup == 'intf':
+                    interface = item.group(item.lastgroup)
+                    int_dict[interface] = {}
+                elif interface:
+                    int_dict[interface] = (item.group('ipaddr'), item.group('mask'))
+        return int_dict
+
+result = parse_cfg('config_r1.txt')
+print(result)
