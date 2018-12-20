@@ -37,5 +37,6 @@ def parse_cfg(file):
                 int_dict[interface] = (step.group('ipaddr'), step.group('mask'))
    return int_dict
 
-result = parse_cfg('config_r1.txt')
-print(result)
+if __name__ == '__main__':
+    result = parse_cfg('config_r1.txt')
+    print(result)
