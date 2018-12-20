@@ -23,3 +23,17 @@
 '''
 
 headers = ['interface', 'address', 'status', 'protocol']
+
+import re
+from task_15_4 import parse_sh_ip_int_br
+
+def convert_to_dict(headers, interfaces):
+    result = []
+    for interface in interfaces:
+        intf_dict = dict(zip(headers, interface))
+        result.append(intf_dict)
+    return(result)
+
+interfaces = parse_sh_ip_int_br('sh_ip_int_br_2.txt')
+result = convert_to_dict(headers, interfaces)
+print(result)

@@ -31,5 +31,6 @@ def parse_sh_ip_int_br(file):
         result = regex.findall(show.read())
     return(result)
 
-result = parse_sh_ip_int_br('sh_ip_int_br_2.txt')
-pprint(result)
+if __name__ == '__main__':
+    result = parse_sh_ip_int_br('sh_ip_int_br_2.txt')
+    pprint(result)
