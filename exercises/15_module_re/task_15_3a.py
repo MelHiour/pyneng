@@ -33,7 +33,7 @@ def parse_cfg(file):
            if step.lastgroup == 'intf':
                 interface = step.group(step.lastgroup)
                 int_dict[interface] = ()
-           elif interface:
+           else:
                 int_dict[interface] = (step.group('ipaddr'), step.group('mask'))
    return int_dict
 
