@@ -29,3 +29,47 @@
 > pip install graphviz
 
 '''
+import yaml
+from pprint import pprint
+from draw_network_graph import draw_topology
+
+with open('topology.yaml') as topo:
+    from_yaml = yaml.load(topo)
+
+'''
+from_yaml looks like this:
+    {'R1': {'Eth 0/0': {'SW1': 'Eth 0/1'}},
+
+     'R2': {'Eth 0/0': {'SW1': 'Eth 0/2'},
+            'Eth 0/1': {'R5': 'Eth 0/0'},
+            'Eth 0/2': {'R6': 'Eth 0/1'}},
+     ...
+We need to convert it to smth like this:
+    ('R1', 'Eth 0/0'):('SW1', 'Eth 0/1')
+    ('R2', 'Eth 0/0'):('SW1', 'Eth 0/2')
+    ('R2', 'Eth 0/1'):('R5', 'Eth 0/0')
+    ...
+'''
+topology_dict = {}
+for local_host, topo in from_yaml.items():
+    for local_interface, remote in topo.items():
+        for remote_host, remote_interface in remote.items():
+            topology_dict[(local_host, local_interface)] = (remote_host, remote_interface)
+
+
+'''
+topology_dict has duplicates
+{('R1', 'Eth 0/0'): ('SW1', 'Eth 0/1'),
+...
+('SW1', 'Eth 0/1'): ('R1', 'Eth 0/0'),
+
+We need to clear them. 
+Form a new dictionary, if key is not in values in new dict, add this key-value pair to new dict.
+'''
+topology_cleared = {}
+for key, value in topology_dict.items():
+    if key not in topology_cleared.values():
+        topology_cleared[key] = value
+
+draw_topology(topology_cleared)
+
