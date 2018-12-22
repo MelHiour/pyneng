@@ -31,7 +31,7 @@ def parse_sh_cdp_neighbors(sh_cdp):
     '''Parsing of "show cdp neighbors" command'''
     result = {}
     # Regexp for             (R5)     (Fa0/1)   123    R S I      2820    (fa0/1)    
-    int_parser = re.compile('(\w+) +([\w \/]+?) +\d+ [RTBSHIrP ]+ +\d+ +([\w \/]+)')
+    int_parser = re.compile('(\w+) +([\w \/]+?) +\d+ [RTBSHIrP ]+ +\S+ +([\w \/]+)')
     # Regexp for SW1>
     host_parser = re.compile('(.+)>')
     local_hostname = host_parser.search(sh_cdp).group(1)
