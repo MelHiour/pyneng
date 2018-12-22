@@ -28,20 +28,26 @@ import re
 from pprint import pprint
 
 def parse_sh_cdp_neighbors(sh_cdp):
+    '''Parsing of "show cdp neighbors" command'''
     result = {}
+    # Regexp for             (R5)     (Fa0/1)   123    R S I      2820    (fa0/1)    
     int_parser = re.compile('(\w+) +([\w \/]+?) +\d+ [RTBSHIrP ]+ +\d+ +([\w \/]+)')
+    # Regexp for SW1>
     host_parser = re.compile('(.+)>')
     local_hostname = host_parser.search(sh_cdp).group(1)
+    # Result of findall is list of tuples three groups eash
     lists = int_parser.findall(sh_cdp)
-    
+    # Forming of complex dictionary 
     result[local_hostname] = {}
     for list in lists:
         result[local_hostname][list[1]]={list[0]:list[2]}
+    return result
+
+if __name__ == '__main__':
+    # Just trying not to use "with" statement )
+    file = open('sh_cdp_n_sw1.txt')
+    sh_cdp = file.read()
+    file.close()
+
+    result = parse_sh_cdp_neighbors(sh_cdp)
     pprint(result)
-
-# Just try not to use with statement )
-file = open('sh_cdp_n_sw1.txt')
-sh_cdp = file.read()
-file.close()
-
-parse_sh_cdp_neighbors(sh_cdp)
