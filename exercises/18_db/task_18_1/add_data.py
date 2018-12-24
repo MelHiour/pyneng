@@ -29,13 +29,15 @@ db_filename = 'dhcp_snooping.db'
 dhcp_snoop_files = glob.glob('sw*_dhcp_snooping.txt')
 #print(dhcp_snoop_files)
 
-def add_data(dhcp_list, db):
+def dhcp_snoop_to_db(dhcp_list, db):
+    print('Parsing output of dhcp snoop')
     host_parse = re.compile('(.+?)_')
     snoop_parse = re.compile('(\S+) +(\S+) +\d+ +\S+ +(\d+) +(\S+)')
  
     result = []
     
     for file in dhcp_list:
+        print('Parsing ', file)
         hostname = host_parse.search(file).group(1)
         with open(file) as shoop:
             for line in shoop:
@@ -45,12 +47,14 @@ def add_data(dhcp_list, db):
                     result_list = list(match.groups())
                     result_list.append(hostname)
                     result.append(tuple(result_list))
-    
+
+    print('Establishing a DB connection')
     conn = sqlite3.connect(db)
     
     for row in result:
         try:
             with conn:
+                print('Inserting :', row)
                 query = '''insert into dhcp (mac, ip, vlan, interface, switch) values (?, ?, ?, ?, ?)'''
                 conn.execute(query, row)
         except sqlite3.IntegrityError as e:
@@ -58,19 +62,21 @@ def add_data(dhcp_list, db):
     conn.close()
 
 def yaml_to_db(yaml_file, db):
+    print('Parsing YAML file {}'.format(yaml_file))
     to_db = []
     with open(yaml_file) as file:
-        print(file)
         result = yaml.load(file)
         for value in result.values():
             for key, value in value.items():
                 to_db.append(tuple([key, value]))
 
+    print('Establishing a DB connection')
     conn = sqlite3.connect(db)
 
     for row in to_db:
         try:
             with conn:
+                print('Inserting :', row)
                 query = '''insert into switches (hostname, location) values (?, ?)'''
                 conn.execute(query, row)
         except sqlite3.IntegrityError as e:
@@ -79,5 +85,5 @@ def yaml_to_db(yaml_file, db):
    
 
 
-add_data(dhcp_snoop_files, db_filename)
+dhcp_snoop_to_db(dhcp_snoop_files, db_filename)
 yaml_to_db('switches.yml', db_filename)
