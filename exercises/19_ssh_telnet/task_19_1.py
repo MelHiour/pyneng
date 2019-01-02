@@ -19,3 +19,31 @@
 '''
 
 command = 'sh ip int br'
+
+from netmiko import ConnectHandler
+import yaml
+from pprint import pprint
+
+with open('devices.yaml') as file:
+    devices = yaml.load(file)
+
+def send_show_command(device, command):
+    result = {}
+    with ConnectHandler(**device) as ssh:
+        print('Connecting to {}'.format(device['ip']))
+        print('\tPrompt is {}'.format(ssh.find_prompt()))
+        if ssh.check_config_mode():
+            print('\nIn config mode')
+        else:
+            print('Doing enable')
+            ssh.enable()
+            print('\tPrompt is {}'.format(ssh.find_prompt()))
+        sent = ssh.send_command(command)
+    result[device['ip']] = sent
+    return result
+
+if __name__ == '__main__':
+    for value in devices.values():
+        for device in value:
+            result = send_show_command(device, command)
+            print(result)
