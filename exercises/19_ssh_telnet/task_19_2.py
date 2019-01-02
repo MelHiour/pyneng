@@ -21,3 +21,32 @@
 commands = [
     'logging 10.255.255.1', 'logging buffered 20010', 'no logging console'
 ]
+
+import netmiko 
+import yaml
+from pprint import pprint
+
+with open('devices.yaml') as file:
+    devices = yaml.load(file)
+
+def send_config_command(device, config_commands, verbose = True):
+    result = {}
+    try:
+        with netmiko.ConnectHandler(**device) as ssh:
+            print('Connecting to {}'.format(device['ip']))
+            ssh.enable()
+            sent = ssh.send_config_set(config_commands)
+            result[device['ip']] = sent
+        if verbose:
+            return result
+    except netmiko.NetMikoAuthenticationException:
+        return('Bad creds on {}'.format(device['ip']))
+
+    except netmiko.NetMikoTimeoutException:
+        return('Connection timeout to {}'.format(device['ip']))
+
+if __name__ == '__main__':
+    for value in devices.values():
+        for device in value:
+            result = send_config_command(device, commands)
+            print(result)
