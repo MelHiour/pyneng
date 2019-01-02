@@ -5,7 +5,7 @@ routers:
   password: wrong-melhiour
   secret: melhiour
 - device_type: cisco_ios
-  ip: 192.168.0.27
+  ip: 192.168.0.25
   username: melhiour
   password: melhiour
   secret: melhiour
