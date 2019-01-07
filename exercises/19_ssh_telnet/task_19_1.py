@@ -24,9 +24,6 @@ from netmiko import ConnectHandler
 import yaml
 from pprint import pprint
 
-with open('devices.yaml') as file:
-    devices = yaml.load(file)
-
 def send_show_command(device, command):
     result = {}
     with ConnectHandler(**device) as ssh:
@@ -43,6 +40,8 @@ def send_show_command(device, command):
     return result
 
 if __name__ == '__main__':
+    with open('devices.yaml') as file:
+        devices = yaml.load(file)
     for value in devices.values():
         for device in value:
             result = send_show_command(device, command)

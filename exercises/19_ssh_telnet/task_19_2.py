@@ -26,9 +26,6 @@ import netmiko
 import yaml
 from pprint import pprint
 
-with open('devices.yaml') as file:
-    devices = yaml.load(file)
-
 def send_config_command(device, config_commands, verbose = True):
     result = {}
     try:
@@ -46,6 +43,8 @@ def send_config_command(device, config_commands, verbose = True):
         return('Connection timeout to {}'.format(device['ip']))
 
 if __name__ == '__main__':
+    with open('devices.yaml') as file:
+        devices = yaml.load(file)
     for value in devices.values():
         for device in value:
             result = send_config_command(device, commands)
