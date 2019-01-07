@@ -31,10 +31,12 @@ def check_ip_threads(function, ips, limit=3):
         result = executor.map(function, ips) # Map iterable entity with function
     return result
 
+# Kind of a really bad code is started here...
 def send_commands_to_device(devices, show = False, filename = False, config = False):
     username = input('Username:')
     password = getpass('Password:')
     secret = getpass('Enable secret:')
+    
     ips = [device['ip'] for device in devices['routers']]
     pinger = list(check_ip_threads(check_ip_address, ips))
     
