@@ -37,7 +37,7 @@ def send_commands_to_device(device_list, show = False, filename = False, config 
 
 if __name__ == '__main__':
     command = 'sh ip int br'
-    with open('devices.yaml') as file:
+    with open('devices2.yaml') as file:
         devices = yaml.load(file)
     for value in devices.values():
         for device in value:
