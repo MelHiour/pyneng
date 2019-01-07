@@ -18,3 +18,28 @@
 Функция send_commands_to_devices должна использовать функцию send_commands из задания 19.3.
 
 '''
+
+import netmiko
+import yaml
+from getpass import getpass
+from pprint import pprint
+from task_19_3 import send_commands
+
+def send_commands_to_device(device_list, show = False, filename = False, config = False):
+    username = input('Username:')
+    password = getpass('Password:')
+    secret = getpass('Enable secret:')
+    device_list['username'] = username
+    device_list['password'] = password
+    device_list['secret'] = secret
+    result = send_commands(device_list, show = show, filename = filename, config = config)
+    return result
+
+if __name__ == '__main__':
+    command = 'sh ip int br'
+    with open('devices.yaml') as file:
+        devices = yaml.load(file)
+    for value in devices.values():
+        for device in value:
+            desired = send_commands_to_device(device, show = command)
+            print(desired)
