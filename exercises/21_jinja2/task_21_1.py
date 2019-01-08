@@ -25,8 +25,8 @@ def generate_cfg_from_template(template_path, data_path):
 
     env = Environment(
     loader=FileSystemLoader(TEMPLATE_DIR),
-    trim_blocks=True,
-    lstrip_blocks=True)
+                            trim_blocks=True,
+                            lstrip_blocks=True)
     template = env.get_template(template_file)
 
     vars_dict = yaml.load(open(data_path))
