@@ -18,19 +18,17 @@ from jinja2 import Environment, FileSystemLoader
 import yaml
 import sys
 import os
+from pprint import pprint
 
 #$ python cfg_gen.py templates/for.txt data_files/for.yml
 def generate_cfg_from_template(template_path, data_path):
     TEMPLATE_DIR, template_file = os.path.split(template_path)
 
-    env = Environment(
-    loader=FileSystemLoader(TEMPLATE_DIR),
-                            trim_blocks=True,
-                            lstrip_blocks=True)
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), trim_blocks=True, lstrip_blocks=True)
     template = env.get_template(template_file)
 
     vars_dict = yaml.load(open(data_path))
-
+    pprint(vars_dict)
     return(template.render(vars_dict))
 
 if __name__ == '__main__':
