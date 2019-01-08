@@ -44,3 +44,32 @@ data_dict = {
     'id': 3,
     'name': 'R3'
 }
+
+from jinja2 import Environment, FileSystemLoader
+import yaml
+import json
+import sys
+import os
+from pprint import pprint
+
+#$ python cfg_gen.py templates/for.txt data_files/for.yml
+def generate_cfg_from_template(template_path, data, trim = True, lstrip = True):
+    TEMPLATE_DIR, template_file = os.path.split(template_path)
+
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), trim_blocks=trim, lstrip_blocks=lstrip)
+    template = env.get_template(template_file)
+    
+    if type(data) == dict:
+        vars_dict = data
+    elif data.split('.')[-1] in ('yaml', 'yml'):
+        vars_dict = yaml.load(open(data))
+    elif data.split('.')[-1] in ('json','jsn'):
+        vars_dict = json.load(open(data))
+    else:
+        print(error_message)
+        return None
+    return(template.render(vars_dict))
+
+if __name__ == '__main__':
+    result = generate_cfg_from_template('templates/for.txt', 'data_files/for.yml')
+    print(result)
