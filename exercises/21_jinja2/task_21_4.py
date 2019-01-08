@@ -28,5 +28,8 @@ interface Gi0/10
 на данных в файле data_files/add_vlan_to_switch.yaml,
 с помощью функции generate_cfg_from_template из задания 21.1-21.1c.
 Не копируйте код функции.
-
 '''
+from task_21_1c import generate_cfg_from_template
+
+result = generate_cfg_from_template('templates/add_vlan_to_switch.txt', 'data_files/add_vlan_to_switch.yaml')
+print(result)
