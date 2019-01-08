@@ -71,5 +71,5 @@ def generate_cfg_from_template(template_path, data, trim = True, lstrip = True):
     return(template.render(vars_dict))
 
 if __name__ == '__main__':
-    result = generate_cfg_from_template('templates/cisco_router_base.txt', 'data_files/router_info.yml', trim = False, lstrip = False)
+    result = generate_cfg_from_template('templates/ospf.txt', 'data_files/ospf.yml')
     print(result)
