@@ -23,22 +23,22 @@
 
 Пример из раздела:
 '''
-
+from pprint import pprint
 import clitable
 
-output_sh_ip_route_ospf = open('output/sh_ip_route_ospf.txt').read()
+def parse_command_dynamic(attributes, output, index = 'index', index_dir = 'templates'):
+    result = []
+    cli_table = clitable.CliTable(index, index_dir)
+    cli_table.ParseCmd(output, attributes)
+    header = list(cli_table.header)
+    data_rows = [list(row) for row in cli_table]
+    for item in data_rows:
+        zipped_dict = dict(zip(header, item))
+        result.append(zipped_dict)
+    return result
 
-cli_table = clitable.CliTable('index', 'templates')
-attributes = {'Command': 'show ip route ospf', 'Vendor': 'Cisco'}
-
-cli_table.ParseCmd(output_sh_ip_route_ospf, attributes)
-
-print('CLI Table output:\n', cli_table)
-print('Formatted Table:\n', cli_table.FormattedTable())
-
-data_rows = [list(row) for row in cli_table]
-header = list(cli_table.header)
-
-print(header)
-for row in data_rows:
-    print(row)
+if __name__ == '__main__':
+    output = open('output/sh_ip_int_br.txt').read()
+    attributes = {'Command': 'show ip interface brief', 'Vendor': 'cisco_ios'}
+    result = parse_command_dynamic(attributes, output)
+    pprint(result)
