@@ -36,7 +36,8 @@ from pprint import pprint
 from task_19_1 import send_show_command
 from task_22_4 import parse_command_dynamic
 
-def send_and_parse_command(devices, attributes, index = 'index', index_dir = 'templates'):
+def send_and_parse_command(devices, command, index = 'index', index_dir = 'templates'):
+    attributes = {'Command': command, 'Vendor': 'cisco_ios'}
     result = {}
     show_sent = send_show_command(devices, attributes['Command'])
     for ip, output in show_sent.items():
@@ -47,6 +48,5 @@ def send_and_parse_command(devices, attributes, index = 'index', index_dir = 'te
 if __name__ == '__main__':
     with open('devices.yaml') as file:
         devices = yaml.load(file)
-    attributes = {'Command': 'show ip interface brief', 'Vendor': 'cisco_ios'}
-    result = send_and_parse_command(devices, attributes)
+    result = send_and_parse_command(devices['routers'], 'show ip interface brief')
     pprint(result)
