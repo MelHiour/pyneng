@@ -27,7 +27,8 @@ def parse_output(template, output):
     with open(template) as file:
         fsm = textfsm.TextFSM(file)
     result.append(fsm.header)
-    result.append(fsm.ParseText(output))
+    for item in fsm.ParseText(output):
+        result.append(item)
     return result
 
 if __name__ == '__main__':

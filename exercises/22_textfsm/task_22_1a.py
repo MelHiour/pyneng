@@ -45,6 +45,7 @@ def parse_output(template, output):
         result.append(zipped_dict)
         #result.append(dict(zip(headers, device))) # Just agly....
     return result
+
 if __name__ == '__main__':
     file = open('output/sh_cdp_n_det.txt').read()
     result = parse_output('templates/sh_cdp_n_det.template',file)
