@@ -20,7 +20,21 @@
 import sys
 import textfsm
 from tabulate import tabulate
+from pprint import pprint
 
+def parse_output(template, output):
+    result = []
+    with open(template) as file:
+        fsm = textfsm.TextFSM(file)
+    result.append(fsm.header)
+    result.append(fsm.ParseText(output))
+    return result
+
+if __name__ == '__main__':
+    file = open('output/sh_cdp_n_det.txt').read()
+    result = parse_output('templates/sh_cdp_n_det.template',file)
+    pprint(result)
+'''
 template = sys.argv[1]
 output_file = sys.argv[2]
 
@@ -30,3 +44,4 @@ with open(template) as f, open(output_file) as output:
     result = re_table.ParseText(output.read())
     print(result)
     print(tabulate(result, headers=header))
+'''
