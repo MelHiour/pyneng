@@ -1,0 +1,18 @@
+---
+
+- name: SH ARP
+  hosts: cisco-routers
+  gather_facts: false
+  connection: local
+
+  tasks:
+      
+  - name: Run sh arp
+    ios_command: 
+      commands: sh arp
+      provider: "{{cli}}"
+    register: show_result
+
+  - name: Show output
+    debug: var=show_result.stdout_lines
+

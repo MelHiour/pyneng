@@ -2,9 +2,9 @@
 
 cli:
   host: "{{ inventory_hostname }}"
-  username: "cisco"
-  password: "cisco"
-  transport: cli
+  username: "melhiour"
+  password: "melhiour"
+  #transport: cli
   authorize: yes
-  auth_pass: "cisco"
+  auth_pass: "melhiour"
 
