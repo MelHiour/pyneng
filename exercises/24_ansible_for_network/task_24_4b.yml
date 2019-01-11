@@ -1,0 +1,33 @@
+---
+
+- name: Configuring ACL
+  hosts: 192.168.0.26
+  gather_facts: false
+  connection: local
+
+
+  tasks:
+    - name: Config ACL
+      ios_config:
+        before:  
+          - interface ethernet 0/1  
+          - no ip access-group INET-to-LAN in
+          - no ip access-list extended INET-to-LAN
+        parents:
+          - ip access-list extended INET-to-LAN
+        lines:
+          - permit tcp 10.0.0.0 0.0.0.255 any eq www
+          - permit tcp 10.0.0.0 0.0.0.255 any eq 22
+          - permit tcp 10.0.0.0 0.0.0.255 any eq telnet
+          - permit icmp any any
+          - deny ip any any
+        after:
+          - interface ethernet 0/1  
+          - ip access-group INET-to-LAN in
+        match: exact
+        provider: "{{cli}}"
+      register: cfg
+
+    - name: Show config updates
+      debug: var=cfg.updates
+      when: cfg.changed
