@@ -10,7 +10,7 @@
     - name: Config ACL
       ios_config:
         before:  
-          - interface {{outside_intf}}
+          - interface ethernet 0/1  
           - no ip access-group INET-to-LAN in
           - no ip access-list extended INET-to-LAN
         parents:
@@ -22,7 +22,7 @@
           - permit icmp any any
           - deny ip any any
         after:
-          - interface {{outside_intf}}
+          - interface ethernet 0/1  
           - ip access-group INET-to-LAN in
         match: exact
         provider: "{{cli}}"
