@@ -14,5 +14,5 @@
     register: show_result
 
   - name: Show output
-    debug: var=show_result
+    debug: var=show_result.stdout_lines
 
